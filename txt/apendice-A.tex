@@ -1,0 +1,165 @@
+\chapter{O Ambiente de Desenvolvimento}
+
+Este apêndice descreve as etapas necessárias para configurar o ambiente de desenvolvimento utilizado ao longo deste livro. O ambiente será configurado no sistema operacional Linux Ubuntu, utilizando o editor de código Visual Studio Code (VS Code), a linguagem Node.js, o framework Express, e os bancos de dados MySQL e MongoDB.
+
+\section{Instalando o Ubuntu}
+\begin{itemize}
+    \item Certifique-se de que você tenha a versão mais recente do Ubuntu instalada em sua máquina. Você pode baixar a versão mais recente do Ubuntu a partir do site oficial: \url{https://ubuntu.com/download}.
+    \item Siga as instruções para instalar o Ubuntu, configurando o particionamento do disco e outras opções conforme necessário.
+    \item Após a instalação, execute o comando abaixo para garantir que todos os pacotes estejam atualizados:
+    \begin{verbatim}
+    sudo apt update && sudo apt upgrade -y
+    \end{verbatim}
+\end{itemize}
+
+\section{Instalando o Visual Studio Code (VS Code)}
+\begin{itemize}
+    \item Baixe e instale o Visual Studio Code (VS Code), um editor de código leve, mas poderoso, ideal para o desenvolvimento em Node.js.
+    \item Execute o seguinte comando para instalar o VS Code via linha de comando:
+    \begin{verbatim}
+    sudo snap install --classic code
+    \end{verbatim}
+    \item Após a instalação, abra o VS Code e configure as extensões recomendadas para desenvolvimento em Node.js:
+    \begin{itemize}
+        \item \textbf{Node.js Extension Pack}
+        \item \textbf{Prettier - Code Formatter}
+        \item \textbf{ESLint}
+    \end{itemize}
+\end{itemize}
+
+\section{Instalando o Node.js e npm}
+\begin{itemize}
+    \item O Node.js é uma plataforma JavaScript que permite executar código JavaScript no lado do servidor.
+    \item Para instalar o Node.js e o npm (Node Package Manager) em Ubuntu, use o seguinte comando:
+    \begin{verbatim}
+    sudo apt install nodejs npm
+    \end{verbatim}
+    \item Verifique a instalação executando:
+    \begin{verbatim}
+    node -v
+    npm -v
+    \end{verbatim}
+    Esses comandos devem retornar as versões instaladas do Node.js e do npm.
+\end{itemize}
+
+\section{Instalando o Framework Express}
+\begin{itemize}
+    \item O Express é um framework web para Node.js, amplamente utilizado para construir aplicações web robustas e escaláveis.
+    \item Para instalar o Express globalmente, execute:
+    \begin{verbatim}
+    npm install -g express-generator
+    \end{verbatim}
+    \item Para criar uma nova aplicação Express, use:
+    \begin{verbatim}
+    express nome-do-projeto
+    \end{verbatim}
+    \item Navegue até o diretório do projeto e instale as dependências:
+    \begin{verbatim}
+    cd nome-do-projeto
+    npm install
+    \end{verbatim}
+\end{itemize}
+
+\section{Instalando o MySQL}
+\begin{itemize}
+    \item O MySQL é um sistema de gerenciamento de banco de dados relacional que será utilizado para armazenar dados estruturados.
+    \item Para instalar o MySQL, execute:
+    \begin{verbatim}
+    sudo apt install mysql-server
+    \end{verbatim}
+    \item Após a instalação, inicie o serviço MySQL e configure a segurança inicial:
+    \begin{verbatim}
+    sudo systemctl start mysql
+    sudo mysql_secure_installation
+    \end{verbatim}
+    \item Conecte-se ao MySQL utilizando:
+    \begin{verbatim}
+    sudo mysql -u root -p
+    \end{verbatim}
+\end{itemize}
+
+\section{Instalando o MongoDB}
+\begin{itemize}
+    \item O MongoDB é um banco de dados NoSQL orientado a documentos que será utilizado para armazenar dados não estruturados.
+    \item Para instalar o MongoDB, execute os seguintes comandos:
+    \begin{verbatim}
+    sudo apt install -y mongodb
+    \end{verbatim}
+    \item Inicie o serviço MongoDB:
+    \begin{verbatim}
+    sudo systemctl start mongodb
+    \end{verbatim}
+    \item Verifique se o MongoDB está funcionando corretamente:
+    \begin{verbatim}
+    sudo systemctl status mongodb
+    \end{verbatim}
+    \item Para interagir com o MongoDB, utilize o cliente de linha de comando:
+    \begin{verbatim}
+    mongo
+    \end{verbatim}
+\end{itemize}
+
+\section{Configurando o Ambiente de Desenvolvimento}
+\begin{itemize}
+    \item \textbf{Configuração do Ambiente Node.js no VS Code:}
+    \begin{itemize}
+        \item Abra o VS Code e carregue o projeto Node.js.
+        \item Configure o arquivo \texttt{launch.json} no VS Code para depuração de aplicações Node.js.
+    \end{itemize}
+    
+    \item \textbf{Conectando ao MySQL e MongoDB:}
+    \begin{itemize}
+        \item Para se conectar ao MySQL em uma aplicação Node.js, utilize o pacote \texttt{mysql}:
+        \begin{verbatim}
+        npm install mysql
+        \end{verbatim}
+        
+        \item Para se conectar ao MongoDB, utilize o pacote \texttt{mongoose}:
+        \begin{verbatim}
+        npm install mongoose
+        \end{verbatim}
+    \end{itemize}
+\end{itemize}
+
+\section{Testando a Configuração}
+\begin{itemize}
+    \item Para garantir que tudo está configurado corretamente, crie um pequeno projeto Node.js que se conecta ao MySQL e ao MongoDB, e execute-o usando o VS Code.
+    
+    \item Verifique se o projeto pode iniciar o servidor Express e realizar operações básicas de CRUD (Create, Read, Update, Delete) nos bancos de dados MySQL e MongoDB.
+    
+    \item Abaixo está um exemplo básico de uma aplicação Node.js que se conecta ao MySQL:
+    \begin{verbatim}
+    const mysql = require('mysql');
+    const connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
+      database: 'test'
+    });
+
+    connection.connect((err) => {
+      if (err) throw err;
+      console.log('Connected to MySQL!');
+    });
+
+    connection.query('SELECT * FROM users', (err, results) => {
+      if (err) throw err;
+      console.log(results);
+    });
+    \end{verbatim}
+    
+    \item E um exemplo para conexão com o MongoDB:
+    \begin{verbatim}
+    const mongoose = require('mongoose');
+
+    mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
+
+    const db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', () => {
+      console.log('Connected to MongoDB!');
+    });
+    \end{verbatim}
+\end{itemize}
+
+% Comentário: Você pode adicionar qualquer instrução ou dica adicional específica para os leitores, dependendo das necessidades do livro.

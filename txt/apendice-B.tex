@@ -1,0 +1,133 @@
+\chapter{Tutorial Básico de Linhas de Comando no Linux}
+
+Este apêndice oferece um tutorial básico sobre como utilizar a linha de comando no shell do Linux. Ele abrange desde comandos simples para manipulação de arquivos e diretórios até comandos para acessar a rede e usar ferramentas como o cURL para interagir com APIs.
+
+\section{Comandos Básicos de Arquivos e Diretórios}
+
+\subsection{Criando uma Pasta}
+Para criar uma nova pasta (diretório), utilize o comando \texttt{mkdir}:
+\begin{verbatim}
+mkdir nome_da_pasta
+\end{verbatim}
+Este comando criará um diretório chamado \texttt{nome\_da\_pasta} no local atual.
+
+\subsection{Navegando até uma Pasta}
+Para navegar até um diretório específico, use o comando \texttt{cd} (change directory):
+\begin{verbatim}
+cd nome_da_pasta
+\end{verbatim}
+Para voltar ao diretório anterior, você pode usar:
+\begin{verbatim}
+cd ..
+\end{verbatim}
+
+\subsection{Criando um Arquivo HTML}
+Para criar um novo arquivo HTML, você pode utilizar o comando \texttt{touch}:
+\begin{verbatim}
+touch index.html
+\end{verbatim}
+Este comando criará um arquivo vazio chamado \texttt{index.html} no diretório atual.
+
+\subsection{Listando Arquivos e Diretórios}
+Para listar todos os arquivos e diretórios no diretório atual, use o comando \texttt{ls}:
+\begin{verbatim}
+ls
+\end{verbatim}
+Você pode adicionar opções ao comando \texttt{ls} para listar arquivos com mais detalhes:
+\begin{verbatim}
+ls -l      # Lista em formato longo, incluindo permissões e tamanhos.
+ls -a      # Lista todos os arquivos, incluindo os ocultos (começam com .).
+ls -lh     # Lista com tamanhos de arquivo em um formato legível (KB, MB).
+\end{verbatim}
+
+\subsection{Procurando Arquivos}
+Para procurar arquivos no sistema, use o comando \texttt{find}:
+\begin{verbatim}
+find /caminho/para/diretorio -name "nome_do_arquivo"
+\end{verbatim}
+Este comando pesquisa recursivamente a partir do diretório especificado por arquivos que correspondam ao nome fornecido.
+
+\subsection{Verificando o Histórico de Comandos}
+Para ver o histórico dos comandos que você executou, utilize o comando \texttt{history}:
+\begin{verbatim}
+history
+\end{verbatim}
+Este comando exibe uma lista de todos os comandos que você executou na sessão atual do terminal.
+
+\section{Comandos de Rede e Acesso a Sites Web}
+
+\subsection{Verificando a Configuração de Rede}
+Para verificar a configuração de rede da sua máquina, use o comando \texttt{ifconfig} (ou \texttt{ip} nas versões mais recentes do Ubuntu):
+\begin{verbatim}
+ifconfig        # Exibe as interfaces de rede e suas configurações.
+ip addr show    # Comando alternativo mais moderno para mostrar interfaces.
+\end{verbatim}
+
+\subsection{Acessando Sites Web}
+Para acessar e recuperar dados de um site a partir da linha de comando, você pode usar o comando \texttt{wget}:
+\begin{verbatim}
+wget https://www.exemplo.com
+\end{verbatim}
+Este comando baixa o conteúdo da URL especificada para o diretório atual.
+
+\section{Usando o cURL para Acessar APIs}
+
+\subsection{Introdução ao cURL}
+O cURL é uma ferramenta de linha de comando que permite realizar requisições a URLs, sendo particularmente útil para acessar APIs RESTful.
+
+\subsection{Realizando uma Requisição GET}
+Para realizar uma requisição GET simples a uma API, use o seguinte comando:
+\begin{verbatim}
+curl https://api.exemplo.com/dados
+\end{verbatim}
+Este comando envia uma requisição GET para a URL especificada e exibe a resposta no terminal.
+
+\subsection{Enviando Dados com uma Requisição POST}
+Para enviar dados em uma requisição POST, você pode usar o cURL da seguinte forma:
+\begin{verbatim}
+curl -X POST https://api.exemplo.com/usuario \
+     -H "Content-Type: application/json" \
+     -d '{"nome": "João", "idade": 30}'
+\end{verbatim}
+Neste exemplo, o comando envia um objeto JSON contendo os dados do usuário para a API.
+
+\subsection{Autenticação com cURL}
+Se a API requer autenticação, você pode adicionar um cabeçalho de autorização à sua requisição:
+\begin{verbatim}
+curl -H "Authorization: Bearer seu_token_aqui" \
+     https://api.exemplo.com/dados_protegidos
+\end{verbatim}
+Este comando envia uma requisição GET autenticada com um token de acesso.
+
+\section{Outros Comandos Úteis}
+\begin{itemize}
+    \item \textbf{pwd:} Mostra o diretório atual (o caminho completo até onde você está).
+    \begin{verbatim}
+    pwd
+    \end{verbatim}
+    
+    \item \textbf{rm:} Remove (exclui) arquivos ou diretórios.
+    \begin{verbatim}
+    rm nome_do_arquivo
+    rm -r nome_do_diretorio  # Remove um diretório e todo o seu conteúdo.
+    \end{verbatim}
+    
+    \item \textbf{cp:} Copia arquivos ou diretórios.
+    \begin{verbatim}
+    cp arquivo_origem arquivo_destino
+    cp -r diretorio_origem diretorio_destino  # Copia diretórios recursivamente.
+    \end{verbatim}
+    
+    \item \textbf{mv:} Move ou renomeia arquivos ou diretórios.
+    \begin{verbatim}
+    mv arquivo_origem arquivo_destino
+    mv nome_antigo nome_novo  # Renomeia um arquivo ou diretório.
+    \end{verbatim}
+    
+    \item \textbf{man:} Exibe o manual de um comando, útil para aprender sobre suas opções e uso.
+    \begin{verbatim}
+    man comando
+    \end{verbatim}
+\end{itemize}
+
+% Comentário: Este tutorial fornece uma introdução prática para alunos que precisam utilizar o shell do Linux em um ambiente de desenvolvimento web. Comandos adicionais ou mais avançados podem ser incluídos conforme necessário.
